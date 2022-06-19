@@ -51,11 +51,39 @@ namespace {
         return result;
     }
 
+    void updateTile(Array2D<Tile>& array2D, size_t x, size_t y) {
+        if (x < 0 || x >= array2D.getWidth()) {
+            return;
+        }
+        if (y < 0 || y >= array2D.getHeight()) {
+            return;
+        }
+
+        auto& tile = array2D.at(x, y);
+        if (tile.counter == Tile::mine) {
+            return;
+        }
+
+        ++tile.counter;
+    }
+
+    void updateAdjacentTiles(Array2D<Tile>& tiles, std::size_t x, std::size_t y) {
+        updateTile(tiles, x - 1, y);
+        updateTile(tiles, x - 1, y - 1);
+        updateTile(tiles, x, y - 1);
+        updateTile(tiles, x + 1, y - 1);
+        updateTile(tiles, x + 1, y);
+        updateTile(tiles, x + 1, y + 1);
+        updateTile(tiles, x, y + 1);
+        updateTile(tiles, x - 1, y + 1);
+    }
+
     Minefield makeMineField(std::size_t width, std::size_t height, const Mines& mines) {
         Array2D<Tile> tiles(width, height);
 
         for (auto item: mines) {
             tiles.at(item.first, item.second).counter = Tile::mine;
+            updateAdjacentTiles(tiles, item.first, item.second);
         }
 
         return Minefield(std::move(tiles));

@@ -7,3 +7,7 @@
 GameState::GameState(unsigned int minesCount, Minefield&& minefield)
     : _minefield(minefield)
 {}
+
+const Minefield& GameState::getMinefield() const {
+    return _minefield;
+}

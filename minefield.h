@@ -15,7 +15,12 @@ public:
     [[nodiscard]] bool isMine(std::size_t x, std::size_t y) const;
     [[nodiscard]] bool isNumber(std::size_t x, std::size_t y) const;
 
-    Tile getTile(std::size_t x, std::size_t y);
+    Tile& getTile(std::size_t x, std::size_t y);
+    [[nodiscard]] const Tile& getTile(std::size_t x, std::size_t y) const;
+
+    [[nodiscard]] std::size_t getWidth() const;
+    [[nodiscard]] std::size_t getHeight() const;
+
 private:
     Array2D<Tile> _tiles;
 };

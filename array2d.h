@@ -21,7 +21,7 @@ public:
             : _width(width)
             , _height(height)
     {
-        _items.reserve(width * height);
+        _items.resize(width * height);
     }
 
     T& at(std::size_t x, std::size_t y) {

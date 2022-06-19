@@ -21,6 +21,18 @@ bool Minefield::isNumber(std::size_t x, std::size_t y) const {
     return tile.counter > Tile::empty && tile.counter < Tile::mine;
 }
 
-Tile Minefield::getTile(std::size_t x, std::size_t y) {
+Tile& Minefield::getTile(std::size_t x, std::size_t y) {
     return _tiles.at(x, y);
+}
+
+const Tile& Minefield::getTile(std::size_t x, std::size_t y) const {
+    return _tiles.at(x, y);
+}
+
+std::size_t Minefield::getWidth() const {
+    return _tiles.getWidth();
+}
+
+std::size_t Minefield::getHeight() const {
+    return _tiles.getHeight();
 }

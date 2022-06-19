@@ -13,6 +13,8 @@ class GameState {
 public:
     explicit GameState(unsigned int minesCount, Minefield&& minefield);
 
+    const Minefield& getMinefield() const;
+
 private:
     Minefield _minefield;
 };

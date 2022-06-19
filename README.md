@@ -21,3 +21,10 @@ to generate bombs placement using standard random library.
 There is also a simple method to avoid bombs colliding by moving bomb to the right (or to the next line if we are to far
 to the right) while an empty tile will not be found.
 
+Part 3. Counting adjacent bombs
+-------------------------------
+The easiest part. In the Part 2, the bombs were placed to the set before placing them into the field. Now that set is
+used to calculate bomb counters for each of the adjacent tiles that are on field and not bombs. The ugly but efficient 
+way to do that is shown starting line 54 in the game_state_builder.cpp.
+
+Also added the game field visualisation in the console, as a visual proof. And fixed typo in array2d.h.

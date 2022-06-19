@@ -12,8 +12,8 @@ public:
     static constexpr unsigned int mine = 9;
 
 public:
-    bool isOpen;
-    unsigned int counter;
+    bool isOpen = false;
+    unsigned int counter = 0;
 };
 
 #endif //MINESWEEPER_TILE_H

@@ -1,8 +1,6 @@
-#include <iostream>
-
-#include "mines.h"
+#include "game_state_builder.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    auto gameState = GameStateBuilder::makeGameState(10, 20, 10);
     return 0;
 }

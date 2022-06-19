@@ -11,7 +11,7 @@
 // In real life I'd prefer not to put some the functions from that namespace into anonymous namespace to make them
 // testable, as those are more than simple helper functions, but for now it is ok-ish
 namespace {
-    void emplaceMine(Mines& mines, std::pair<std::size_t, std::size_t> coords, std::size_t width, std::size_t height) {
+    void emplaceMine(TileCoordinates& mines, std::pair<std::size_t, std::size_t> coords, std::size_t width, std::size_t height) {
         auto maybeNewCoords = coords;
         // Checking for collisions, ugly way
         while (mines.contains(maybeNewCoords)) {
@@ -31,13 +31,13 @@ namespace {
         mines.insert(maybeNewCoords);
     }
 
-    Mines generateMinesPosition(std::size_t width, std::size_t height, unsigned int minesNumber) {
+    TileCoordinates generateMinesPosition(std::size_t width, std::size_t height, unsigned int minesNumber) {
         std::random_device randomDevice;
         std::default_random_engine randomEngine(randomDevice());
         std::uniform_int_distribution<std::size_t> widthDistribution(0, width - 1);
         std::uniform_int_distribution<std::size_t> heightDistribution(0, height - 1);
 
-        Mines result;
+        TileCoordinates result;
 
         for (int i = 0; i < minesNumber; i++) {
             auto x = widthDistribution(randomEngine);
@@ -52,10 +52,12 @@ namespace {
     }
 
     void updateTile(Array2D<Tile>& array2D, size_t x, size_t y) {
-        if (x < 0 || x >= array2D.getWidth()) {
+        // Standard implies that in case of integer overflow we will have maximal value for UNSIGNED types
+        // for signed types, it's still UB
+        if (x == std::numeric_limits<std::size_t>::max() || x >= array2D.getWidth()) {
             return;
         }
-        if (y < 0 || y >= array2D.getHeight()) {
+        if (y == std::numeric_limits<std::size_t>::max() || y >= array2D.getHeight()) {
             return;
         }
 
@@ -78,7 +80,7 @@ namespace {
         updateTile(tiles, x - 1, y + 1);
     }
 
-    Minefield makeMineField(std::size_t width, std::size_t height, const Mines& mines) {
+    Minefield makeMineField(std::size_t width, std::size_t height, const TileCoordinates& mines) {
         Array2D<Tile> tiles(width, height);
 
         for (auto item: mines) {

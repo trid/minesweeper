@@ -20,6 +20,6 @@ struct pair_hash {
 };
 
 
-using Mines = std::unordered_set<std::pair<std::size_t, std::size_t>, pair_hash>;
+using TileCoordinates = std::unordered_set<std::pair<std::size_t, std::size_t>, pair_hash>;
 
 #endif //MINESWEEPER_MINES_H
